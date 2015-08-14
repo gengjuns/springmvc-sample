@@ -1,0 +1,270 @@
+
+/** OfficeApps Top Nav **/
+
+    .navbar-officeapps {
+        margin-bottom:0px !important; 
+        position: relative;
+        z-index: 2;    
+        margin-left: 0px;
+        margin-right: 0px;            
+    }
+
+    .navbar-officeapps .nav > li > a {
+        padding: 10px 10px;       
+    }
+
+    .navbar-officeapps .btn-navbar {
+        color: #333333;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        padding: 4px 12px;
+    }
+  
+    .navbar-officeapps .btn-navbar:hover,.navbar-officeapps .btn-navbar:active, .navbar-officeapps .btn-navbar.active, .navbar-officeapps .btn-navbar.disabled, .navbar-officeapps .btn-navbar[disabled] {
+        color: #333333;
+    }
+
+/* Optus OfficeApps Logo
+    .navbar-officeapps .OA-brand {
+        height: 19px;
+        width: 135px;
+        margin: 9px 5px;
+        float: left;
+    }
+*/
+/* Optus Apps Logo */
+    .navbar-officeapps .OA-brand {
+        float: left;
+        height: 40px;
+        width: 98px;        
+        margin: 0px 5px;
+    }
+    
+    .navbar-officeapps .OA-company-brand {
+        height: 36px;
+        width: 87px;
+        margin: 3px 5px;
+        float: left;
+    }
+    
+/** OfficeApps Left Sub Nav **/
+
+    .OA-sidenav {
+        padding: 0 !important; 
+    }
+
+    .OA-sidenav > li:first-child > a, .OA-sidenav > li:first-child > .sidenav-heading{
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+
+
+    .OA-sidenav > li > .sidenav-heading{
+        border: 1px solid #E5E5E5;
+        display: block;
+        margin: 0 0 -1px;       
+        padding: 8px 4px 8px 14px;
+    }
+
+    .OA-sidenav small{
+        word-wrap: break-word;
+        -ms-word-wrap: break-word;
+        white-space: normal;
+    }
+
+    .OA-sidenav .emailheading{
+        color: #999999;        
+        word-wrap: break-word;
+        -ms-word-wrap: break-word;
+        white-space: normal;
+    }
+
+
+    .OA-sidenav > li:last-child > a,.OA-sidenav > li:last-child > .sidenav-heading {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .OA-sidenav > li > a {
+        border: 1px solid #E5E5E5;
+        display: block;
+        margin: 0 0 -1px !important;           
+        padding: 8px 13px !important;
+    }
+
+    .OA-sidenav .icon-chevron-right {
+        float: right;
+        margin-right: -6px;
+        margin-top: 2px;
+        color: #CCCCCC;
+    }
+
+    .OA-sidenav a:hover .icon-chevron-right {
+        color: #919191;
+    }
+
+    .OA-sidenav .active .icon-chevron-right, .OA-sidenav .active a:hover .icon-chevron-right, .OA-sidenav .active a:focus .icon-chevron-right {
+       color: #ffffff;
+    }
+
+
+/** OfficeApps Forms and Fields **/
+
+    .OA-form-actions {
+        margin: 0px;
+    }
+
+    .OA-form {
+        margin: 0px;
+    }
+
+   .help-block, .help-inline {
+        color: #999999;
+    }
+
+    label.valid {
+        color: green;
+        margin-left: 5px;
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+
+    label.error {
+        color: red;
+        margin-left: 5px;
+        font-size: 12px;
+        margin-bottom: 0px;
+    }
+
+	.OA-input-big {
+		padding-top: 8px !important;
+		padding-bottom: 8px !important;
+		font-size: 16px !important;
+	}
+	
+	.OA-input-disabled {
+		font-weight: bold;
+		background: #FEFEEE !important;
+		cursor: default !important;
+	}
+
+    .OA-label-code {
+        background: none repeat scroll 0 0 #D7EFF5;
+        border: 2px dashed #39ADCF;
+        border-radius: 8px 8px 8px 8px;
+        padding: 4px 10px;
+        text-decoration: none;
+    }
+
+    .OAlicence-input {
+        width: 25px;
+    }
+
+    .OAlicence-disabled {
+        border: none !important;
+        background: none !important;
+        box-shadow:none !important;
+        cursor: default !important ;
+    }
+
+    .OA-input-filter {
+        background: url("../img/search_small.png") no-repeat scroll 8px center #FFFFFF !important;
+        padding-left: 30px !important;
+    }
+
+    .OA-header-background {
+        background-color: #F5F5F5;
+    }
+
+    .OA-btn-on {
+        width:40px;
+        height:30px
+    }
+
+    .OA-btn-off {
+        width:40px;
+        height:30px
+    }
+
+/** OfficeApps Containers and other **/
+
+    .content-officeapps {
+        border-color: #CCCCCC #CCCCCC #CCCCCC !important;
+        border-width: 1px 1px 1px !important;
+        border-style: solid !important;
+        width:auto !important;
+        position: relative;
+        /*z-index: 1;*/
+        margin-top: 15px;
+        background: none repeat scroll 0 0 #FFFFFF;
+        border-radius: 10px !important;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.1) !important;
+        padding: 20px !important;
+    }
+
+    .OA-wrapper {
+        margin-bottom: 10px;
+    }
+
+    .OA-hr {
+        margin: 0 0 10px;
+    }
+
+    .muted > a {
+        color: #999999 !important;
+    }
+
+    .muted > a:hover {
+        color: #666666 !important;
+    }    
+
+    .pull-center {
+        text-align: center !important;
+    }
+
+    body {
+    	background: url("../img/whitey.png") repeat scroll 0 0 transparent;
+        background-color: #F5F5F5 !important;
+    }
+
+@media (max-width: 480px) {
+    .hidden-phone {
+        display: none !important;
+    }
+
+    .content-officeapps {
+        padding: 10px !important;
+    }
+
+    body {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .hidden-phone {
+        display: inherit !important;
+    }
+
+    .content-officeapps {
+        padding: 10px !important;
+    }  
+
+    body {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+.control-group {
+	margin-bottom: 0px;
+}
+
+h4 {
+    margin: 0;
+}
+    .message-container {
+    
+    }

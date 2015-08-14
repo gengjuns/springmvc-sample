@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:list id="customSessionFactories">
+        <!-- <ref bean="jpaUserSessionFactory"/>
+        <ref bean="jpaGroupSessionFactory"/> -->
+    </util:list>
+
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration" depends-on="entityManagerFactory"
+          p:dataSource-ref="dataSource"
+          p:databaseSchemaUpdate="true"
+          p:dbIdentityUsed="false"
+          p:transactionManager-ref="transactionManager"
+          p:jpaEntityManagerFactory-ref="entityManagerFactory"
+          p:jpaHandleTransaction="true"
+          p:jpaCloseEntityManager="true"
+          p:customSessionFactories-ref="customSessionFactories"
+          p:mailServerHost="${mail.host}"
+          p:mailServerPort="${mail.port}"
+          p:history="full"
+          p:jobExecutorActivate="false"/>
+
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
+          p:processEngineConfiguration-ref="processEngineConfiguration"/>
+
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+
+</beans>

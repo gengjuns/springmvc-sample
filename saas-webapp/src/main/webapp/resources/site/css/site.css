@@ -1,0 +1,168 @@
+html,
+body {
+    height: 100%;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -40px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 40px;
+}
+
+#footer {
+    /* background-color: #000000; */
+}
+
+/* apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+#wrap > .container {
+    padding-top: 40px;
+}
+
+.container .credit {
+    margin: 10px 0;
+    font-size: 80%;
+    text-align: center;
+}
+
+#content-container {
+    margin-top: 20px;
+}
+
+.navbar .nav > li > a {
+    padding: 10px 6px 10px !important;
+}
+
+.logo.brand {
+    background: url(../img/logo.png) 5px 5px no-repeat;
+    min-width: 108px;
+}
+
+/*
+.form-horizontal .input-prepend {
+    margin-left: 180px;
+    display: block;
+}
+*/
+
+@media (max-width: 767px) {
+    .form-horizontal .input-prepend {
+        margin-left: 20px;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-horizontal .input-prepend {
+        margin-left: 0;
+        display: inline-block;
+    }
+}
+
+#login-modal {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: 40px auto 40px 100px;
+    z-index: 1;
+    max-width: 100%;
+    min-width: 420px;
+    width: 420px;
+}
+
+@media (max-width: 767px) {
+    #login-modal {
+        margin: 1px auto 40px;
+    }
+}
+
+.login-bg {
+    background: url("../img/bg_login.jpg") no-repeat fixed;
+    background-size: cover;
+}
+
+#login-modal input[type="text"],
+#login-modal input[type="password"] {
+    width: 180px;
+}
+
+#login-modal > .form-horizontal .control-label {
+    width: 120px;
+}
+
+#login-modal > .form-horizontal .controls {
+    margin-left: 140px;
+    *margin-left: 0px;
+}
+
+#login-modal > .form-horizontal .input-prepend {
+    margin-left: 140px;
+    display: block;
+}
+
+.control-value {
+    float: left;
+    width: 160px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+#grid .k-grid-view {
+    min-width: 15px;
+    text-decoration: none;
+}
+
+#grid .k-grid-modify {
+    min-width: 15px;
+    text-decoration: none;
+}
+
+#grid .k-grid-delete {
+    min-width: 15px;
+    text-decoration: none;
+}
+
+#grid .k-delete {
+    background-image: none;
+    width: 0px;
+}
+
+#aboutModal .brand {
+    border-right: solid 1px #ccc;
+    height: 80px;
+}
+
+#aboutModal .brand .logo {
+    margin-top: 25px;
+}
+
+span.required {
+    float: right;
+    color: #ff0000;
+}
+
+span.required-message {
+    color: #ff0000;
+}
+
+.tab-content {
+    overflow: visible;
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                                 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- default beans and properties -->
+    <import resource="classpath:spring/app-context-commons.xml"/>
+
+    <tx:annotation-driven/>
+
+    <context:component-scan base-package="com.saas" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="com.saas.core.annotation.WebComponent"/>
+        <context:include-filter type="annotation" expression="com.saas.core.annotation.ApplicationConverter"/>
+        <context:include-filter type="assignable" expression="com.saas.core.web.config.WebMvcConfiguration"/>
+    </context:component-scan>
+
+    <mvc:interceptors>
+        <!-- handle JPA lazy loading -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <bean class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor"
+                  p:entityManagerFactory-ref="entityManagerFactory"/>
+        </mvc:interceptor>
+
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+
+        <!-- handle user context for each request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="userInterceptor"/>
+        </mvc:interceptor>
+
+        <!-- handle tenant context for each request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="tenantInterceptor"/>
+        </mvc:interceptor>
+        
+        
+        <!-- handle log for each request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <mvc:exclude-mapping path="/init"/>
+            <ref bean="logInterceptor"/>
+        </mvc:interceptor>
+
+        <!-- handle ui configuration for each request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="webConfigInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor"
+                  p:cacheSeconds="0"
+                  p:useCacheControlHeader="true"
+                  p:useCacheControlNoStore="true"
+                  p:useExpiresHeader="true"/>
+        </mvc:interceptor>
+        
+        <!-- handle user permission for each user request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="userPermissionInterceptor"/>
+        </mvc:interceptor>
+        <!-- handle reseller user permission for each reseller user request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/reseller/user/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="userPermissionInterceptor"/>
+        </mvc:interceptor>
+        
+        <!-- handle tenant permission for each tenant request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/tenant/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="tenantPermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/**/*.html" location="/"/>
+    <!--
+        <mvc:resources mapping="/*.jsp" location="/"/>
+    -->
+
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+        <property name="exceptionMappings">  
+            <props>  
+               <prop key="java.lang.Exception">commons/error</prop>  
+               <prop key="java.lang.Throwable">commons/error</prop> 
+	         </props>  
+        </property>  
+        <property name="statusCodes">  
+	            <props>  
+	                <prop key="errors/error">500</prop>  
+	                <prop key="errors/404">404</prop>  
+	            </props>  
+      </property>  
+        <property name="warnLogCategory" value="WARN"></property>  
+        <property name="defaultErrorView" value="commons/error"></property>  
+	        <property name="defaultStatusCode" value="500"></property>  
+	    </bean>  
+    
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+        <!-- one of the properties available; the maximum file size in bytes   10m  -->
+        <property name="maxUploadSize" value="104857600000000" />
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- <property name="uploadTempDir" value="UTF-8"/>  -->
+        <!-- <property name="exceptionMappings">
+        	<props>
+	        	<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">commons/error</prop>
+        	</props>
+        </property> -->
+    </bean>
+</beans>
+

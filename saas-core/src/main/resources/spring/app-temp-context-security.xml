@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:p="http://www.springframework.org/schema/p"
+             xmlns:c="http://www.springframework.org/schema/c"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <global-method-security pre-post-annotations="enabled"/>
+
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/login" security="none"/>
+    <http pattern="/loginerror" security="none"/>
+    <http pattern="/index.jsp" security="none"/>
+    <http pattern="/forgetpassword/**" security="none"/>
+	<http pattern="/enrollment/**" security="none"/>
+    <http pattern="/activeaccount/**" security="none"/>
+    <http pattern="/resetpassword/**" security="none"/>
+	
+    <http auto-config='true' use-expressions="true">
+        <intercept-url pattern="/init" access="permitAll"/>
+
+
+        <!-- home -->
+        <intercept-url pattern="/home" access="isAuthenticated()"/>
+
+        <!-- Portal Level Start -->
+        <!-- code type -->
+        <intercept-url pattern="/codetype/**" access="hasAnyRole('ROLE_PORTAL_ADMIN')"/>
+
+        <!-- code value -->
+        <intercept-url pattern="/codevalue/**" access="hasAnyRole('ROLE_PORTAL_ADMIN')"/>
+
+        <!-- permission -->
+        <intercept-url pattern="/permission/**" access="hasAnyRole('ROLE_PORTAL_ADMIN')"/>
+
+        <!-- role -->
+        <intercept-url pattern="/role/**" access="hasAnyRole('ROLE_PORTAL_ADMIN')"/>
+ 		 <!-- Portal Level End -->
+ 		 
+ 		 
+		<!-- Reseller Level Start-->
+		
+		<!-- reseller user -->
+        <intercept-url pattern="/reseller/user/**" access="hasAnyRole('ROLE_PORTAL_ADMIN','ROLE_RESELLER_ADMIN')"/>
+        
+        <!-- tenant -->
+        <intercept-url pattern="/tenant/**" access="hasAnyRole('ROLE_PORTAL_ADMIN','ROLE_RESELLER_ADMIN')"/>
+        
+        <!-- Reseller Level End-->
+        
+
+
+		<!-- Tenant Level Start -->
+		
+        <!-- user -->
+        <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_PORTAL_ADMIN','ROLE_TENANT_ADMIN')"/>
+        
+		<!-- ad -->
+        <intercept-url pattern="/ad/**" access="hasAnyRole('ROLE_PORTAL_ADMIN','ROLE_TENANT_ADMIN')"/>
+
+		<!-- Tenant Level End -->
+        
+        <remember-me key="${auth.rememberme.key}"
+                     authentication-success-handler-ref="authenticationSuccessHandler"
+                     services-ref="rememberMeServices"/>
+
+        <form-login login-page="/login"
+                    login-processing-url="/dologin"
+                    authentication-failure-url="/loginerror"
+                    default-target-url="/home"
+                    username-parameter="username_"
+                    password-parameter="password_"
+                    authentication-success-handler-ref="authenticationSuccessHandler"
+                    authentication-failure-handler-ref="authenticationFailureHandler"/>
+
+        <logout logout-url="/logout"/>
+    </http>
+
+    <beans:bean id="authenticationFailureHandler"
+                class="com.saas.identity.auth.service.AuthenticationFailureHandler"
+                p:defaultFailureUrl="/loginerror"/>
+
+    <beans:bean id="rememberMeServices"
+                class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices"
+                c:key="${auth.rememberme.key}"
+                c:userDetailsService-ref="userService"
+                p:alwaysRemember="false"
+                p:parameter="${auth.rememberme.parameter.name}"
+                p:cookieName="${auth.remember.cookie.name}"
+                p:useSecureCookie="${ui.secure.cookie:null}"
+                p:tokenValiditySeconds="${auth.rememberme.duration}"/>
+
+    <beans:bean id="passwordEncoder"
+                class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

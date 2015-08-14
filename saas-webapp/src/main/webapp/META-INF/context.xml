@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/saas">
+    <Resource name="jdbc/saasDS"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/saas-demo?characterEncoding=UTF-8&amp;characterSetResults=UTF-8"
+              username="root"
+              password="123456"
+              maxActive="20"/>
+</Context>

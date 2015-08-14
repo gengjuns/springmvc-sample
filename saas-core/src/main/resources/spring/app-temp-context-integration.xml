@@ -1,0 +1,36 @@
+<beans:beans xmlns="http://camel.apache.org/schema/spring"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:p="http://www.springframework.org/schema/p"
+             xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
+        <package>com.saas</package>
+        <!-- <route>
+            <from uri="jms:queue:QUEUE.EVENT"/>
+            delay to ensure item is flush
+            <delay>
+                <constant>1000</constant>
+            </delay>
+            <multicast>
+                <bean ref="dataObjectEventConsumer" method="onEvent"/>
+            </multicast>
+        </route>
+        <route>
+        	<from uri="jms:queue:QUEUE.REPORT"/>
+        	<delay>
+        		<constant>1000</constant>
+        	</delay>
+        	<multicast>
+        		<bean ref="reportRequestConsumer" method="onCreate"></bean>
+        	</multicast>
+        	
+        </route> -->
+    </camelContext>
+
+    <beans:bean id="jms" class="org.apache.activemq.camel.component.ActiveMQComponent"
+                p:brokerURL="${jms.brokerURL}"/>
+
+</beans:beans>
